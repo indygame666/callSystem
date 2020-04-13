@@ -4,13 +4,17 @@ const User = require('../models/User')
 const {check, validationResult} = require('express-validator')
 const jwt = require('jsonwebtoken')
 const config = require('config')
+const bcrypt = require('bcryptjs')
 
-// auth/register
+// api/auth/register
 router.post(
     '/register',
     [
-        check('email', "Invalid email").isEmail(),
-        check('password', "Invalid length").isLength({ min:6})
+        //check('email', "Invalid email").isEmail(),
+        //check('wardNumber', "палата должна быть прописана числом").,
+        check('password', "пароль должен состоят минимум из 6 символов").isLength({ min:6}),
+        check('gender', '')
+       
     ], 
     async (req,res) => {
     try{
@@ -19,59 +23,62 @@ router.post(
         if(!errors.isEmpty()){
             return res.status(400).json({
                 errors: errors.array(),
-                message: "Invalid data"
+                message: "Неправильные данные"
             })
         }
 
-       const {email, password} =  req.body 
-       const candidate = await User.findOne({email})
+       const {fullName, password,wardNumber,gender,diagnoses} =  req.body 
+       const candidate = await User.findOne({wardNumber})
        
        if (candidate) {
-         return  res.status(400). json({message: "User already exist, try again"})
+         return  res.status(400). json({message: "Место уже занято другим пользователем"})
        }
 
        const hashedPassword = await bcrypt.hash(password, 12)
-       const user = new User({ email, password: hashedPassword})
+       const user = new User({fullName, password: hashedPassword,wardNumber,gender,diagnoses})
 
        await user.save()
 
-       res.status(201).json({ message: "User has been succesfully created"})
+       res.status(201).json({ message: "Пользователь успешно записан"})
 
 
     }catch(e){
-    res.status(500).json({message: 'Error, try again'})    
+    res.status(500).json({message: 'Ошибка, попытайтесь снова'})    
     }
 })
 
-// auth/login
+// api/auth/login
 router.post(
     '/login',
     [
-        check('email', 'Pls enter the correct email').normalizeEmail().isEmail(),
-        check('password', 'Enter the password').exists()
+       // check('email', 'Pls enter the correct email').normalizeEmail().isEmail(),
+       check('wardNumber', 'Введите номер места').exists(), 
+       check('password', 'Введите пароль').exists(),
+      
     ],
     async (req,res) => {
     try{
             const errors = validationResult(req)
-    
+            
             if(!errors.isEmpty()){
                 return res.status(400).json({
                     errors: errors.array(),
-                    message: "Invalid data"
+                    message: "Ошибка данных"
+                    
                 })
             }
      
-            const {email, password} = req.body
-            const user = await User.findOne({email})
+            const {wardNumber, password} = req.body
+            const user = await User.findOne({wardNumber})
             
             if (!user) {
-                return res.status(400).json({ message:'Wrong email or password' })
+                return res.status(400).json({ message:'Неправильный логин или пароль' })
             }
 
             const isMatch = await bcrypt.compare(password, user.password)
 
             if (!isMatch) {
-                return res.status(400).json({ message: 'Wrong email or password'})
+                return res.status(400).json({ message: 'Неправильный пароль'})
             }
 
             const token = jwt.sign(
@@ -81,9 +88,12 @@ router.post(
 
             )
             res.json({token, userId: user.id})
+          
+
+         res.json({userId: user.id})
 
         }catch(e){
-        res.status(500).json({message: 'Error, try again'})    
+        res.status(500).json({message: 'Ошибка, попробуйте снова'})    
         }
 })
 

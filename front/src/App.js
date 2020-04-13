@@ -5,7 +5,7 @@ import {BrowserRouter as Router} from 'react-router-dom'
 
 
 function App() {
-  const routes = useRoutes(true)
+  const routes = useRoutes(false)
   return (
     <Router>
     <div className="container">
