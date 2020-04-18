@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useHttp } from '../hooks/http.hooks'
 import { useMessage } from '../hooks/message.hooks'
+import { AuthContext } from '../context/AuthContext'
+import {useHistory } from 'react-router-dom'
+
 
 
 export const AuthPage = () => {
+    const auth = useContext(AuthContext)
     const message = useMessage()
+    const history = useHistory()
 
     const {loading,request,error,clearError} = useHttp()
     const [form,setForm] = useState({
@@ -25,7 +30,7 @@ export const AuthPage = () => {
     const loginHandler = async() =>{
         try{
             const data = await request('api/auth/login', 'POST', {...form})
-            message(data.message)
+            auth.login(data.token, data.userId)
         } catch(e) {
 
         }
@@ -33,7 +38,6 @@ export const AuthPage = () => {
  
 
     return(
-        <div className="row">
             <div className = "col s6 offset-s3">
                 <h1>Auth Page</h1>
                     <div className="card blue-grey darken-1">
@@ -74,16 +78,17 @@ export const AuthPage = () => {
                                  >
                                  Войти
                                  </button>
-
                                 <button className="waves-effect waves-light btn"
                                 disabled = {loading}
+                                onClick={() => {
+                                    history.push('/register')
+                               }}
                                 >
                                 Зарегистрироваться
                                 </button>                                
                                 </div>
                     </div>
                 </div>
-            </div>
     )
 
 }

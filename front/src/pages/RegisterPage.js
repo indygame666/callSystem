@@ -1,9 +1,11 @@
 import React, {useEffect, useState } from 'react'
 import { useHttp } from '../hooks/http.hooks'
 import { useMessage } from '../hooks/message.hooks'
+import { useHistory } from 'react-router-dom'
 
 export const RegisterPage = () => {
     const message = useMessage()
+    const history = useHistory()
 
     const {loading,request,error, clearError} = useHttp()
     const [form,setForm] = useState({
@@ -25,6 +27,7 @@ export const RegisterPage = () => {
         try{
             const data = await request('api/auth/register', 'POST', {...form})
             message(data.message)
+            history.push('/')
         } catch(e) {
 
         }
@@ -34,7 +37,6 @@ export const RegisterPage = () => {
     return(
         <div className="row">
             <div className = "col s6 offset-s3">
-                <h1></h1>
                     <div className="card blue-grey darken-1">
                         <div className="card-content white-text">
                             <span className="card-title">Регистрация</span>

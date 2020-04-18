@@ -13,8 +13,6 @@ router.post(
         //check('email', "Invalid email").isEmail(),
         //check('wardNumber', "палата должна быть прописана числом").,
         check('password', "пароль должен состоят минимум из 6 символов").isLength({ min:6}),
-        check('gender', '')
-       
     ], 
     async (req,res) => {
     try{
@@ -43,7 +41,9 @@ router.post(
 
 
     }catch(e){
-    res.status(500).json({message: 'Ошибка, попытайтесь снова'})    
+
+        res.status(500).json({message: 'Ошибка, попытайтесь снова'})    
+    
     }
 })
 
@@ -69,7 +69,9 @@ router.post(
             }
      
             const {wardNumber, password} = req.body
+            
             const user = await User.findOne({wardNumber})
+            const fullName = user.fullName
             
             if (!user) {
                 return res.status(400).json({ message:'Неправильный логин или пароль' })
@@ -87,10 +89,7 @@ router.post(
                 {   expiresIn: '1h' }
 
             )
-            res.json({token, userId: user.id})
-          
-
-         res.json({userId: user.id})
+            res.json({token, userId: user.id,})
 
         }catch(e){
         res.status(500).json({message: 'Ошибка, попробуйте снова'})    
