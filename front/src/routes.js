@@ -3,13 +3,15 @@ import {Switch,Route, Redirect} from 'react-router-dom'
 import {ClientPage} from './pages/ClientPage'
 import { AuthPage } from './pages/AuthPage'
 import { RegisterPage } from './pages/RegisterPage'
-import { useAuth } from './hooks/auth.hook'
-import { AuthContext} from './context/AuthContext'
 import { AdminAuthPage } from './pages/AdminAuthPage'
+import {AdminPage} from './pages/AdminPage'
 
-export const useRoutes = isAuthenticated => {
+export const useRoutes = (isAuthenticated,decoded) => {
 
     if (isAuthenticated){
+
+       if (decoded === 'client')
+        {
         return (
             <Switch>
             <Route path = "/clientPage" exact>
@@ -18,8 +20,35 @@ export const useRoutes = isAuthenticated => {
 
             <Redirect to="/clientPage" />
             </Switch>
-            
-        )
+            )
+        }
+
+        if (decoded === 'admin')
+        {
+            return (
+                <Switch>
+                <Route path = "/adminPage" exact>
+                    <AdminPage/>
+                </Route>
+    
+                <Redirect to="/adminPage" />
+                </Switch>
+                )
+        } 
+
+     /*   {
+            return (
+                <Switch>
+                <Route path = "/clientPage" exact>
+                    <ClientPage/>
+                </Route>
+    
+                <Redirect to="/clientPage" />
+                </Switch>
+                )
+            } */
+
+
     }
 
     return (

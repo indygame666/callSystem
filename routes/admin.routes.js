@@ -1,10 +1,12 @@
 const {Router} = require ('express')
 const router = Router()
 const Admin = require('../models/Admin')
+const Notification = require('../models/Notification')
 const {check, validationResult} = require('express-validator')
 const jwt = require('jsonwebtoken')
 const config = require('config')
 const bcrypt = require('bcryptjs')
+const admin = require('../middleware/admin.middleware')
 
 router.post(
     '/login',
@@ -42,8 +44,8 @@ router.post(
             }
 
             const token = jwt.sign(
-                { userId: user.id },
-                config.get('jwtAdminSecret'),
+                { user: 'admin' },
+                config.get('jwtSecret'),
                 {   expiresIn: '1h' }
 
             )
@@ -53,5 +55,43 @@ router.post(
         res.status(500).json({message: 'Ошибка, попробуйте снова'})    
         }
 })
+
+router.get('/getNotifications', admin, async (req,res)=>{
+    try {
+        const collection = await Notification.find()
+        res.json(collection)
+    } catch(e){
+        res.status(500).json({message: 'Ошибка, попытайтесь снова'}) 
+    }
+})
+
+router.post('/delete', admin, async (req,res)=>{
+    try {
+
+        const response = await Notification.deleteOne(req.param._id)
+        res.json('пользователен удалён')
+    } catch(e){
+        res.status(500).json({message: 'Ошибка, попытайтесь снова'}) 
+    }
+})
+
+router.post('/update', admin, async (req,res)=>{
+    try {
+
+        lastClientNotification = req.body
+
+        const lastServerNotification = Notification.find().limit(1).sort({$natural:-1}).pretty()
+        
+        console.log(lastServerNotification)
+
+        res.json('test')
+        
+    } catch(e){
+        res.status(500).json({message: 'Ошибка, попытайтесь снова'}) 
+    }
+})
+
+
+
 
 module.exports = router

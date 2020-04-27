@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useMessage } from '../hooks/message.hooks'
-import { useHistory } from 'react-router-dom'
 import { useHttp } from '../hooks/http.hooks'
+import { AuthContext } from '../context/AuthContext'
 
 export const AdminAuthPage = () => {
     
     const message = useMessage()
-    const history = useHistory()
+    const auth = useContext(AuthContext)
 
-    const {error,clearError} = useHttp()
+   const {loading,request,error,clearError} = useHttp()
 
     const [form,setForm] = useState({
         login:'', password: '' 
@@ -17,6 +17,21 @@ export const AdminAuthPage = () => {
     const changeHandler = event => {
     setForm({...form,[event.target.name]: event.target.value})
     }
+
+   const loginHandler = async() =>{
+      try{
+        const user = await request('api/admin/login', 'POST', {...form})
+
+        const temp = user.token
+
+        const data = await request('api/data/verify','POST', {temp} )
+
+        auth.login(user.token, user.userId, data.user)
+      } catch(e) {
+
+      }
+  }
+   
     
     useEffect(() =>{
       message(error)
@@ -24,9 +39,9 @@ export const AdminAuthPage = () => {
       },[error,message,clearError])
 
     return(
-    <div class="col s12 m6">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
+    <div className="col s12 m6">
+      <div className="card blue-grey darken-1">
+        <div className="card-content white-text">
          
         <div className="input-field">
         <input 
@@ -51,10 +66,12 @@ export const AdminAuthPage = () => {
       </div>
 
         </div>
-        <div class="card-action">
+        <div className="card-action">
 
         <button className="waves-effect waves-light btn"
         style={{marginRight: 10}}
+        onClick = {loginHandler}
+        disabled = {loading}
         >
         Войти
         </button>
@@ -63,4 +80,4 @@ export const AdminAuthPage = () => {
       </div>
     </div>
     )
-}
+} 

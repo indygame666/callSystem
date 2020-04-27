@@ -7,7 +7,9 @@ import {useHistory } from 'react-router-dom'
 
 
 export const AuthPage = () => {
+    
     const auth = useContext(AuthContext)
+    
     const message = useMessage()
     const history = useHistory()
 
@@ -29,8 +31,13 @@ export const AuthPage = () => {
 
     const loginHandler = async() =>{
         try{
-            const data = await request('api/auth/login', 'POST', {...form})
-            auth.login(data.token, data.userId)
+            const user = await request('api/auth/login', 'POST', {...form})
+
+            const temp = user.token
+
+            const data = await request('api/data/verify','POST', {temp} )
+
+            auth.login(user.token, user.userId, data.user)
         } catch(e) {
 
         }

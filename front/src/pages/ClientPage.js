@@ -3,11 +3,11 @@ import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hooks'
 import { CardPage } from '../components/CardPage'
 import { useMessage } from '../hooks/message.hooks'
+import {Loader} from '../components/Loader'
 
 
 export const ClientPage = () => {
-    const [user,setUser] = useState(null)
-    const [notification,setNotification] = useState('')     
+    const [user,setUser] = useState(null)  
     const message = useMessage()
     
     const auth = useContext(AuthContext)
@@ -28,6 +28,7 @@ export const ClientPage = () => {
           const data = await request(`/api/data/getData/${auth.userId}`,'GET',null,{ 
                 Authorization: `Bearer ${auth.token}`
             })
+
             setUser(data)
         }catch(e){
         }
@@ -39,8 +40,12 @@ export const ClientPage = () => {
         {
         getUser()
         }
-    }, [getUser])  
+    }, [auth,getUser])  
     
+    if (loading)
+    {
+        return <Loader/>
+    }
     
 
     return(
