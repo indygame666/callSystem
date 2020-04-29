@@ -9,7 +9,7 @@ import {useHistory } from 'react-router-dom'
 export const AuthPage = () => {
     
     const auth = useContext(AuthContext)
-    
+
     const message = useMessage()
     const history = useHistory()
 
@@ -84,15 +84,7 @@ export const AuthPage = () => {
                                  disabled = {loading}
                                  >
                                  Войти
-                                 </button>
-                                <button className="waves-effect waves-light btn"
-                                disabled = {loading}
-                                onClick={() => {
-                                    history.push('/register')
-                               }}
-                                >
-                                Зарегистрироваться
-                                </button>                                
+                                 </button>                           
                                 </div>
                     </div>
                 </div>

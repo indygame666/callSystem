@@ -6,7 +6,7 @@ import { RegisterPage } from './pages/RegisterPage'
 import { AdminAuthPage } from './pages/AdminAuthPage'
 import {AdminPage} from './pages/AdminPage'
 
-export const useRoutes = (isAuthenticated,decoded) => {
+export const useRoutes = (isAuthenticated,decoded) => { 
 
     if (isAuthenticated){
 
@@ -30,24 +30,16 @@ export const useRoutes = (isAuthenticated,decoded) => {
                 <Route path = "/adminPage" exact>
                     <AdminPage/>
                 </Route>
+
+                
+                <Route path = "/register" exact>
+                    <RegisterPage />
+                </Route>
     
                 <Redirect to="/adminPage" />
                 </Switch>
                 )
         } 
-
-     /*   {
-            return (
-                <Switch>
-                <Route path = "/clientPage" exact>
-                    <ClientPage/>
-                </Route>
-    
-                <Redirect to="/clientPage" />
-                </Switch>
-                )
-            } */
-
 
     }
 
@@ -55,10 +47,6 @@ export const useRoutes = (isAuthenticated,decoded) => {
         <Switch>
         <Route path ="/login" exact>
             <AuthPage />
-        </Route>
-
-        <Route path = "/register" exact>
-            <RegisterPage />
         </Route>
 
         <Route path ="/admin" exact>

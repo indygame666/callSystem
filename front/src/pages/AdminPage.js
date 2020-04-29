@@ -8,10 +8,10 @@ import {Loader} from '../components/Loader'
 export const AdminPage = () => {
 
   const [notification, setNotification] = useState(null)  
-  const message = useMessage()
+//  const message = useMessage()
   
   const auth = useContext(AuthContext)
-  const {loading, request} = useHttp() 
+  const {request} = useHttp() 
 
   const getNofitication = useCallback( async () => {
     try{

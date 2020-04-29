@@ -1,11 +1,13 @@
-import React, {useEffect, useState } from 'react'
+import React, {useEffect, useState, useContext } from 'react'
 import { useHttp } from '../hooks/http.hooks'
 import { useMessage } from '../hooks/message.hooks'
 import { useHistory } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 
 export const RegisterPage = () => {
     const message = useMessage()
     const history = useHistory()
+    const auth = useContext(AuthContext)
 
     const {loading,request,error, clearError} = useHttp()
     const [form,setForm] = useState({
@@ -25,7 +27,9 @@ export const RegisterPage = () => {
 
     const registerHandler = async() =>{
         try{
-            const data = await request('api/auth/register', 'POST', {...form})
+
+            const data = await request('api/auth/register', 'POST', {...form}, { 
+              Authorization: `Bearer ${auth.token}`})
             message(data.message)
             history.push('/')
         } catch(e) {

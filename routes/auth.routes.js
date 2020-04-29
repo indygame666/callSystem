@@ -5,6 +5,7 @@ const {check, validationResult} = require('express-validator')
 const jwt = require('jsonwebtoken')
 const config = require('config')
 const bcrypt = require('bcryptjs')
+const admin = require('../middleware/admin.middleware')
 
 // api/auth/register
 router.post(
@@ -14,6 +15,7 @@ router.post(
         //check('wardNumber', "палата должна быть прописана числом").,
         check('password', "пароль должен состоят минимум из 6 символов").isLength({ min:6}),
     ], 
+    admin,
     async (req,res) => {
     try{
         const errors = validationResult(req)

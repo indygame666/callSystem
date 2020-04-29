@@ -8,12 +8,12 @@ export const NotificationList = ( { notifications } ) => {
     
     const {loading, request} = useHttp() 
     const auth = useContext(AuthContext)
-    const message = useMessage()
-    const history = useHistory()
+
     const deleteHandler = async( notification ) =>{
         try{
          
-          const response = await request('/api/admin/delete', 'POST', { notification } , { Authorization: `Bearer ${auth.token}`}) 
+          const response = await request('/api/admin/delete', 'POST', { notification } , { Authorization: `Bearer ${auth.token}`})
+          
           window.location.reload()
         } catch(e) {
 
