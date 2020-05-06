@@ -11,7 +11,7 @@ export const RegisterPage = () => {
 
     const {loading,request,error, clearError} = useHttp()
     const [form,setForm] = useState({
-       fullName:'', password: '', wardNumber: '', gender: '', diagnoses: ''
+       fullName:'', password: '', wardNumber: '', gender: '', diagnoses: '', treatment:''
     })
 
     const changeHandler = event => {
@@ -28,7 +28,7 @@ export const RegisterPage = () => {
     const registerHandler = async() =>{
         try{
 
-            const data = await request('api/auth/register', 'POST', {...form}, { 
+            const data = await request('api/admin/register', 'POST', {...form}, { 
               Authorization: `Bearer ${auth.token}`})
             message(data.message)
             history.push('/')
@@ -36,6 +36,10 @@ export const RegisterPage = () => {
 
         }
     } 
+
+ const handleClick = () => {
+      history.push('/adminPage')
+  }
  
 
     return(
@@ -101,6 +105,17 @@ export const RegisterPage = () => {
                             />
                             <label htmlFor="diagnoses"></label>
                           </div>
+                          
+                        <div className="input-field">
+                            <input 
+                            placeholder="Впишите рекомендуемое лечение(необязательно)" 
+                            id="treatment" 
+                            type="text"
+                            name="treatment"
+                            onChange = {changeHandler}
+                            />
+                            <label htmlFor="treatment"></label>
+                         </div>
 
                             </div>
                             </div>
@@ -111,7 +126,15 @@ export const RegisterPage = () => {
                                 onClick = {registerHandler}
                                 >
                                 Зарегистрироваться
-                                </button>                                
+                                </button>
+                                
+                                <button className="waves-effect waves-light btn"
+                                disabled = {loading}
+                                onClick = {handleClick}
+                                >
+                                Выйти
+                                </button>            
+                                
                                 </div>
                     </div>
                 </div>

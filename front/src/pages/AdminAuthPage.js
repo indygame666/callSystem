@@ -15,7 +15,7 @@ export const AdminAuthPage = () => {
     })
 
     const changeHandler = event => {
-    setForm({...form,[event.target.name]: event.target.value})
+    setForm({...form, [event.target.name]: event.target.value})
     }
 
    const loginHandler = async() =>{

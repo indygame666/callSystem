@@ -52,12 +52,6 @@ useEffect( () => {
 
 }, [getNofitication])  
 
-/*
-if (loading)
-    {
-        return <Loader/>
-    }
-*/
 
   return(
     <div>

@@ -31,7 +31,7 @@ export const AuthPage = () => {
 
     const loginHandler = async() =>{
         try{
-            const user = await request('api/auth/login', 'POST', {...form})
+            const user = await request('api/client/login', 'POST', {...form})
 
             const temp = user.token
 

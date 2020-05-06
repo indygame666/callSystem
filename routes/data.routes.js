@@ -5,20 +5,20 @@ const router = Router()
 const auth = require('../middleware/auth.middleware')
 const jwt = require('jsonwebtoken')
 const config = require('config')
-const bcrypt = require('bcryptjs')
-
 
 
 router.post('/generate', auth, async(req,res)=>{
     try {
 
-        const {user} = req.body
+        const {name,wardNumber,gender,diagnoses,treatment} = req.body
 
-        const name = user[Object.keys(user)[1]]
+       /* const name = user[Object.keys(user)[1]]
         const wardNumber = user[Object.keys(user)[3]]
         const gender = user[Object.keys(user)[4]]
         const diagnoses = user[Object.keys(user)[5]]
+        const treatment = user[Object.keys(user)[6]]
 
+        */
         
         const existing = await Notification.findOne({ wardNumber})
 
@@ -30,7 +30,8 @@ router.post('/generate', auth, async(req,res)=>{
             name,
             wardNumber,
             gender,
-            diagnoses
+            diagnoses,
+            treatment
         })
 
         await notification.save()
@@ -43,23 +44,24 @@ router.post('/generate', auth, async(req,res)=>{
 })
 
 
-router.get('/getData',auth, async (req,res)=>{
+router.get(`/getData/:id`,auth, async (req,res)=>{
     try {
-        const user = await User.find({owner: req.user.userId}) /// ???
+
+        if (req.user.id == req.params.id)
+        {
+            const user = await User.findById(req.params.id) 
         res.json(user)
+        }
+        else
+        {
+            res.status(400).json ({message: 'Ошибка, нет прав доступа'})
+        }
+
     } catch(e){
         res.status(500).json({message: 'Ошибка, попытайтесь снова'}) 
     }
 })
 
-router.get(`/getData/:id`,auth, async (req,res)=>{
-    try {
-        const user = await User.findById(req.params.id) /// ???
-        res.json(user)
-    } catch(e){
-        res.status(500).json({message: 'Ошибка, попытайтесь снова'}) 
-    }
-})
 
 router.post(`/verify`, async (req,res)=>{
     

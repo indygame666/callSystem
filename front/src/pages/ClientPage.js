@@ -18,7 +18,14 @@ export const ClientPage = () => {
 
     const notificationHandler = async() =>{
         try{
-          const response = await request('api/data/generate', 'POST', {user} , { Authorization: `Bearer ${auth.token}`}) 
+
+            const name = user[Object.keys(user)[1]]
+            const wardNumber = user[Object.keys(user)[3]]
+            const gender = user[Object.keys(user)[4]]
+            const diagnoses = user[Object.keys(user)[5]]
+            const treatment = user[Object.keys(user)[6]]
+            
+          const response = await request('api/data/generate', 'POST', {name,wardNumber,gender,diagnoses,treatment} , { Authorization: `Bearer ${auth.token}`}) 
           message(response.message)
           
         } catch(e) {

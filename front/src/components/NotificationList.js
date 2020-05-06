@@ -13,7 +13,7 @@ export const NotificationList = ( { notifications } ) => {
         try{
          
           const response = await request('/api/admin/delete', 'POST', { notification } , { Authorization: `Bearer ${auth.token}`})
-          
+                    
           window.location.reload()
         } catch(e) {
 
