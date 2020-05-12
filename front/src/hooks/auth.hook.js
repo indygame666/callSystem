@@ -8,7 +8,7 @@ export const useAuth = () =>{
     const [ready,setReady] = useState(false)
     const [userId,setUserId] = useState(null)
     const [decoded,setDecoded] = useState('')
-    const {loading,request} = useHttp()
+    const {request} = useHttp()
 
 
     const login = useCallback( (jwtToken, id, data) =>{

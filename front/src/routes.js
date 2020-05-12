@@ -4,7 +4,8 @@ import {ClientPage} from './pages/ClientPage'
 import { AuthPage } from './pages/AuthPage'
 import { RegisterPage } from './pages/RegisterPage'
 import { AdminAuthPage } from './pages/AdminAuthPage'
-import {AdminPage} from './pages/AdminPage'
+import { AdminPage } from './pages/AdminPage'
+import { ConfigUserPage } from './pages/ConfigUserPage'
 
 export const useRoutes = (isAuthenticated,decoded) => { 
 
@@ -34,6 +35,10 @@ export const useRoutes = (isAuthenticated,decoded) => {
                 
                 <Route path = "/register" exact>
                     <RegisterPage />
+                </Route>
+
+                <Route path = "/edit" exact>
+                    <ConfigUserPage />
                 </Route>
     
                 <Redirect to="/adminPage" />

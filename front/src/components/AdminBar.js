@@ -14,19 +14,20 @@ export const AdminBar = () =>
         history.push('/')
     }
 
-//    console.log(auth.decoded)
 
     return(
         <nav>
             <div className="nav-wrapper card blue-grey darken-1">
-                    <li>
-                    <a href="esc" onClick = {logoutHandler}>Выйти</a>
-                    <NavLink to="/register"> Регистрация пользователя</NavLink>
-                    </li>
+            <ul>
+                    <li ><a href="esc" onClick = {logoutHandler}>Выйти</a></li>
+
+                    <li><a><NavLink to="/register"> Регистрация </NavLink></a></li>
+                    <li><a><NavLink to="/edit">  Редактирование </NavLink></a></li>
+            </ul>
                     
             </div>
         </nav>
         )
-
+    
     
 }

@@ -9,6 +9,7 @@ const config = require('config')
 const bcrypt = require('bcryptjs')
 const admin = require('../middleware/admin.middleware')
 
+
 router.post(
     '/login',
     [
@@ -32,13 +33,13 @@ router.post(
             const {login, password} = req.body
             
            const user = await Admin.findOne({login})
-          //  const fullName = user.fullName
             
             if (!user) {
                 return res.status(400).json({ message:'Неправильный логин или пароль' })
             }
 
             const isMatch = await bcrypt.compare(password, user.password)
+
 
             if (!isMatch) {
                 return res.status(400).json({ message: 'Неправильный логин или пароль'})
@@ -86,7 +87,8 @@ router.post(
          return  res.status(400). json({message: "Место уже занято другим пользователем"})
        }
 
-       const hashedPassword = await bcrypt.hash(password, 12)
+
+    const hashedPassword = await bcrypt.hash(password, 12)
 
        const user = new User({fullName, password: hashedPassword,wardNumber,gender,diagnoses,treatment})
 
@@ -114,8 +116,9 @@ router.get('/getNotifications', admin, async (req,res)=>{
 
 router.post('/delete', admin, async (req,res)=>{
     try {
+        
+    const response = await Notification.deleteOne({wardNumber: req.body.notification})
 
-        const response = await Notification.deleteOne(req.param._id)
         res.json('пользователен удалён')
     } catch(e){
         res.status(500).json({message: 'Ошибка, попытайтесь снова'}) 

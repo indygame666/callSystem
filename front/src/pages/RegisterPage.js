@@ -43,10 +43,8 @@ export const RegisterPage = () => {
  
 
     return(
-        <div className="row">
-            <div className = "col s6 offset-s3">
-                    <div className="card blue-grey darken-1">
-                        <div className="card-content white-text">
+       
+                            <div>
                             <span className="card-title">Регистрация</span>
                             <div>
 
@@ -118,7 +116,6 @@ export const RegisterPage = () => {
                          </div>
 
                             </div>
-                            </div>
                                 <div className="card-action">
 
                                 <button className="waves-effect waves-light btn"
@@ -136,9 +133,10 @@ export const RegisterPage = () => {
                                 </button>            
                                 
                                 </div>
-                    </div>
-                </div>
-            </div>
+                                </div>
+                   
+                
+            
     )
 
 }

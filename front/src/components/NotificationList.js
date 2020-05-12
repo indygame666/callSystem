@@ -1,8 +1,6 @@
 import React, { useContext } from 'react'
 import { useHttp } from '../hooks/http.hooks'
 import { AuthContext } from '../context/AuthContext'
-import { useMessage } from '../hooks/message.hooks'
-import { useHistory } from 'react-router-dom'
 
 export const NotificationList = ( { notifications } ) => {
     
@@ -46,7 +44,7 @@ export const NotificationList = ( { notifications } ) => {
                 <td>
                 <button className="waves-effect waves-light btn"
                 disabled = {loading}
-                onClick={() => deleteHandler(notification)}
+                onClick={() => deleteHandler(notification.wardNumber)}
                 >
                 удалить
                 </button> 

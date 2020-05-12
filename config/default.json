@@ -3,5 +3,6 @@
     "socketPort" : 500,
     "jwtSecret": "do androids dream of electic memes",
     "jwtAdminSecret": "remember, no russian",
+    "cryptSecret": "KappaPride",
     "mongoUri" : "mongodb+srv://admin:123321@cluster0-zql5o.azure.mongodb.net/app?retryWrites=true&w=majority"
 }
