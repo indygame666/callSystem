@@ -21,8 +21,8 @@ export const AdminBar = () =>
             <ul>
                     <li ><a href="esc" onClick = {logoutHandler}>Выйти</a></li>
 
-                    <li><a><NavLink to="/register"> Регистрация </NavLink></a></li>
-                    <li><a><NavLink to="/edit">  Редактирование </NavLink></a></li>
+                    <li><NavLink to="/register"> Регистрация </NavLink></li>
+                    <li><NavLink to="/edit">  Редактирование </NavLink></li>
             </ul>
                     
             </div>

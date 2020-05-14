@@ -100,24 +100,47 @@ router.put(`/update/:wardNumber`,admin, async (req,res)=>{
             if (!user){
                 return res.status(400).json({message:'Пользователь не найден'})
             }
+            
 
-            const result = await User.updateOne(user, req.body)
+            if (user._id == req.body.id)
+            {
+            
+                await User.updateOne(user, req.body)
 
-            res.json({message:"Пользователь изменен"})
+            res.json({message:"Пользователь изменен"})   
+            }
+
+            else{
+                return res.status(400).json({message:'Ошибка, изменен номер палаты, в которой находится другой пациент'})
+            }
+            
 
     } catch(e){
-
+        console.log(e)
         res.status(500).json({message: 'Ошибка, попытайтесь снова'}) 
     }
 })
 
-router.post(`/delete/:wardNumber`, async (req,res)=>{
+router.post(`/delete/:wardNumber`,admin, async (req,res)=>{
     
     try {
 
-        const response = await User.deleteOne({wardNumber:req.params.wardNumber})
+       const user = await User.findOne({wardNumber: req.params.wardNumber}) 
+       
+       if (!user){
+        return res.status(400).json({message:'Пользователь не найден'})
+    }
+
+    if (user._id == req.body.id)
+    {
+        await User.deleteOne(user)
 
         res.json({message:"Пользователь удален"})
+    }
+
+    else{
+        return res.status(400).json({message:'Ошибка, изменен номер палаты, в которой находится другой пациент'})
+    }
 
     } catch(e){
         res.status(500).json({message: 'Ошибка, попытайтесь снова'}) 

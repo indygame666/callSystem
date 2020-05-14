@@ -8,8 +8,7 @@ export const CardPage = ( {user} ) =>{
     const treatment = user[Object.keys(user)[6]]
 
 
- return(
-    <div className="collection">
+ return(    
     <ul className="collection with-header">
         
     <li className="collection-header"><h4>Имя:</h4></li>
@@ -28,7 +27,6 @@ export const CardPage = ( {user} ) =>{
         <li className="collection-item">{treatment}</li>
         
     </ul>
-</div>
  )
 
 

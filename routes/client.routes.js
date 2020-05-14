@@ -31,7 +31,6 @@ router.post(
             const {wardNumber, password} = req.body
             
             const user = await User.findOne({wardNumber})
-            const fullName = user.fullName
             
             if (!user) {
                 return res.status(400).json({ message:'Неправильный логин или пароль' })
@@ -53,6 +52,7 @@ router.post(
             res.json({token, userId: user.id})
 
         }catch(e){
+        
         res.status(500).json({message: 'Ошибка, попробуйте снова'})    
         }
 })

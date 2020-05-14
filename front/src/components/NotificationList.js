@@ -10,7 +10,7 @@ export const NotificationList = ( { notifications } ) => {
     const deleteHandler = async( notification ) =>{
         try{
          
-          const response = await request('/api/admin/delete', 'POST', { notification } , { Authorization: `Bearer ${auth.token}`})
+          await request('/api/admin/delete', 'POST', { notification } , { Authorization: `Bearer ${auth.token}`})
                     
           window.location.reload()
         } catch(e) {
@@ -28,7 +28,7 @@ export const NotificationList = ( { notifications } ) => {
         <table>
         <thead>
           <tr>
-              <th>Name</th>
+              <th>ФИО</th>
               <th>Палата</th>
               <th>Диагноз</th>
           </tr>
@@ -42,7 +42,7 @@ export const NotificationList = ( { notifications } ) => {
                 <td>{notification.wardNumber}</td>
                 <td>{notification.diagnoses}</td>
                 <td>
-                <button className="waves-effect waves-light btn"
+                <button className="waves-effect red btn"
                 disabled = {loading}
                 onClick={() => deleteHandler(notification.wardNumber)}
                 >

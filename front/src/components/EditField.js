@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { useHttp } from '../hooks/http.hooks'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
@@ -11,9 +11,8 @@ export const EditField = ( { user } ) => {
     const auth = useContext(AuthContext)
     const message = useMessage()
 
-
+    const id = user[Object.keys(user)[0]]
     const name = user[Object.keys(user)[1]]
-   // const password = user[Object.keys(user)[2]]
     const wardNumber = user[Object.keys(user)[3]]
     const gender = user[Object.keys(user)[4]]
     const diagnoses = user[Object.keys(user)[5]]
@@ -21,7 +20,7 @@ export const EditField = ( { user } ) => {
 
 
     const [form,setForm] = useState({
-        fullName: name , wardNumber: wardNumber, gender: gender, diagnoses: diagnoses, treatment: treatment
+        fullName: name , wardNumber: wardNumber, gender: gender, diagnoses: diagnoses, treatment: treatment,
      })
  
      const changeHandler = event => {
@@ -31,8 +30,11 @@ export const EditField = ( { user } ) => {
      const changeClick = async() =>{
         try{
 
-            const data = await request(`api/data/update/${form.wardNumber}`, 'PUT', {...form}, { 
+            console.log(id)
+
+            const data = await request(`api/data/update/${form.wardNumber}`, 'PUT', {...form, id}, { 
               Authorization: `Bearer ${auth.token}`})
+
             message(data.message)
             history.push('/')
         } catch(e) {
@@ -43,7 +45,8 @@ export const EditField = ( { user } ) => {
      const deleteClick = async() => {
         try{
 
-            const response = await request(`api/data/delete/${form.wardNumber}`, 'POST', {...form.wardNumber}, { 
+            
+            const response = await request(`api/data/delete/${form.wardNumber}`, 'POST', {...form.wardNumber, id}, { 
                 Authorization: `Bearer ${auth.token}`})
                 message(response.message)
                 history.push('/')
@@ -91,6 +94,7 @@ export const EditField = ( { user } ) => {
                             />
                             <label htmlFor="gender"></label>
             </div>
+            
 
             <div className="input-field">
                             <input 
@@ -116,14 +120,14 @@ export const EditField = ( { user } ) => {
                             <label htmlFor="treatment"></label>
             </div>
 
-            <button className="waves-effect waves-light btn"
+            <button className="waves-effect waves-light main btn"
                                 disabled = {loading}
                                 onClick = {changeClick}
                                 >
                                 Изменить
                                 </button>
 
-            <button className="waves-effect waves-light btn"
+            <button className="waves-effect red secondary btn"
                                 disabled = {loading}
                                 onClick = {deleteClick}
                                 >

@@ -1,1 +1,14 @@
 @import "~materialize-css/dist/css/materialize.min.css"; 
+
+
+@font-face {
+
+    font-family: BebasNeue; /* Имя шрифта */
+    
+    src: url('/front/src/css/fonts/BebasNeue-Regular.ttf'); /* Путь к файлу со шрифтом */
+    
+}
+
+.BebasNeue{
+    font-family: BebasNeue;
+}

@@ -3,6 +3,8 @@ import { useHttp } from '../hooks/http.hooks'
 import { useMessage } from '../hooks/message.hooks'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
+import '../css/buttons.css'
+import '../css/cards.css'
 
 export const RegisterPage = () => {
     const message = useMessage()
@@ -43,10 +45,9 @@ export const RegisterPage = () => {
  
 
     return(
-       
-                            <div>
+    <div>
                             <span className="card-title">Регистрация</span>
-                            <div>
+                            <div >
 
                             <div className="input-field">
                             <input 
@@ -118,22 +119,22 @@ export const RegisterPage = () => {
                             </div>
                                 <div className="card-action">
 
-                                <button className="waves-effect waves-light btn"
+                                <button className="main btn waves-effect waves-light"
                                 disabled = {loading}
                                 onClick = {registerHandler}
                                 >
                                 Зарегистрироваться
                                 </button>
-                                
-                                <button className="waves-effect waves-light btn"
+                              
+                                <button className="secondary btn waves-effect waves-light "
                                 disabled = {loading}
                                 onClick = {handleClick}
                                 >
                                 Выйти
                                 </button>            
                                 
-                                </div>
-                                </div>
+                            </div>
+      </div>
                    
                 
             
