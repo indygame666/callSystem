@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { useMessage } from '../hooks/message.hooks'
 
-export const EditField = ( { user } ) => {
+export const EditUserField = ( { user } ) => {
 
     const {loading,request} = useHttp()
     const  history = useHistory()

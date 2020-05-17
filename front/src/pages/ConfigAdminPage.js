@@ -2,9 +2,9 @@ import React, { useState, useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hooks'
 import { Loader } from '../components/Loader'
-import { EditUserField } from '../components/EditUserField'
+import { EditAdminField } from '../components/EditAdminField'
 
-export const ConfigUserPage = () => {
+export const ConfigAdminPage = () => {
 
     const auth = useContext(AuthContext)
     const {loading, request} = useHttp()
@@ -12,7 +12,7 @@ export const ConfigUserPage = () => {
 
 
     const [form,setForm] = useState({
-        wardNumber:''
+        login:''
      })
  
      const changeHandler = event => {
@@ -22,7 +22,7 @@ export const ConfigUserPage = () => {
     const findHandler = async() =>{
         try{
 
-            const data = await request(`/api/data/getClient/${form.wardNumber}`,'GET',null,{ 
+            const data = await request(`/api/data/getAdmin`,'POST',{...form},{ 
                 Authorization: `Bearer ${auth.token}`})
             
             setClient(data)
@@ -31,8 +31,6 @@ export const ConfigUserPage = () => {
 
         }
     } 
-
-
 
     if (loading)
     {
@@ -43,9 +41,9 @@ export const ConfigUserPage = () => {
     if (client)
     {
         return(
-        <div>
-        { !loading && <EditUserField  user = {client} />}
-        </div>
+            <div>
+            { !loading && <EditAdminField  user = {client} />}
+            </div>
         )
     }
     else{
@@ -54,14 +52,14 @@ export const ConfigUserPage = () => {
         
         <div className="input-field">
         <input 
-        placeholder="Введите номер палаты" 
-        id="wardNumber" 
+        placeholder="Введите логин" 
+        id="login" 
         type="text"
-        name="wardNumber"
+        name="login"
         onChange = {changeHandler}
 
         />
-        <label htmlFor="wardNumber"></label>
+        <label htmlFor="login"></label>
         </div>
 
         <button className="waves-effect waves-light btn"

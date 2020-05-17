@@ -18,7 +18,9 @@ export const NavBar = () =>
     return(
         <nav>
             <div className="nav-wrapper card blue-grey darken-1">
+                <ul>
                     <li><a href="esc" onClick = {logoutHandler}>Выйти</a></li>
+                </ul>
             </div>
         </nav>
         )

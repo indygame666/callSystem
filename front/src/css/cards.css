@@ -5,3 +5,8 @@
 .center{
     margin: 0 auto;
 }
+
+.drop_large{
+    width: 300px !important
+}
+
