@@ -26,7 +26,7 @@ export const EditAdminField = ( { user } ) => {
      const changeClick = async() =>{
         try{
 
-            const data = await request(`api/data/updateAdmin`, 'PUT', {...form}, { 
+            const data = await request(`api/admin/updateAdmin`, 'PUT', {...form}, { 
               Authorization: `Bearer ${auth.token}`})
 
             message(data.message)
@@ -40,7 +40,7 @@ export const EditAdminField = ( { user } ) => {
         try{
 
             
-            const response = await request(`api/data/deleteAdmin`, 'POST', {...form}, { 
+            const response = await request(`api/admin/deleteAdmin`, 'POST', {...form}, { 
                 Authorization: `Bearer ${auth.token}`})
                 message(response.message)
                 history.push('/')

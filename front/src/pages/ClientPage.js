@@ -25,7 +25,7 @@ export const ClientPage = () => {
             const diagnoses = user[Object.keys(user)[5]]
             const treatment = user[Object.keys(user)[6]]
             
-          const response = await request('api/data/generate', 'POST', {name,wardNumber,gender,diagnoses,treatment} , { Authorization: `Bearer ${auth.token}`}) 
+          const response = await request('api/client/generate', 'POST', {name,wardNumber,gender,diagnoses,treatment} , { Authorization: `Bearer ${auth.token}`}) 
           message(response.message)
           
         } catch(e) {

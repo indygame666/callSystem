@@ -32,7 +32,7 @@ export const EditUserField = ( { user } ) => {
 
             console.log(id)
 
-            const data = await request(`api/data/update/${form.wardNumber}`, 'PUT', {...form, id}, { 
+            const data = await request(`api/admin/updateUser/${form.wardNumber}`, 'PUT', {...form, id}, { 
               Authorization: `Bearer ${auth.token}`})
 
             message(data.message)
@@ -46,7 +46,7 @@ export const EditUserField = ( { user } ) => {
         try{
 
             
-            const response = await request(`api/data/delete/${form.wardNumber}`, 'POST', {...form.wardNumber, id}, { 
+            const response = await request(`api/admin/deleteUser/${form.wardNumber}`, 'POST', {...form.wardNumber, id}, { 
                 Authorization: `Bearer ${auth.token}`})
                 message(response.message)
                 history.push('/')

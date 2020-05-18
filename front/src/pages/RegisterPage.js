@@ -30,7 +30,7 @@ export const RegisterPage = () => {
     const registerHandler = async() =>{
         try{
 
-            const data = await request('api/admin/register', 'POST', {...form}, { 
+            const data = await request('api/admin/registerUser', 'POST', {...form}, { 
               Authorization: `Bearer ${auth.token}`})
             message(data.message)
             history.push('/')

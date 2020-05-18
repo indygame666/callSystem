@@ -14,7 +14,7 @@ export const AdminPage = () => {
   const getNofitication = useCallback( async () => {
     try{
 
-      const data = await request(`/api/admin/getNotifications`,'GET',null,{ 
+      const data = await request(`/api/data/getNotifications`,'GET',null,{ 
             Authorization: `Bearer ${auth.token}`
         })
 

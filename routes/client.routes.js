@@ -1,11 +1,12 @@
 const {Router} = require ('express')
 const router = Router()
 const User = require('../models/User')
+const Notification = require('../models/Notification')
 const {check, validationResult} = require('express-validator')
 const jwt = require('jsonwebtoken')
 const config = require('config')
 const bcrypt = require('bcryptjs')
-const admin = require('../middleware/admin.middleware')
+const auth = require('../middleware/auth.middleware')
 
 // api/auth/login
 router.post(
@@ -55,6 +56,34 @@ router.post(
         
         res.status(500).json({message: 'Ошибка, попробуйте снова'})    
         }
+})
+
+router.post('/generate', auth, async(req,res)=>{
+    try {
+
+        const {name,wardNumber,gender,diagnoses,treatment} = req.body
+        
+        const existing = await Notification.findOne({wardNumber})
+
+        if (existing) {
+            return res.json ({message: 'Уведомление уже было создано'})
+        }
+
+        const notification = new Notification({
+            name,
+            wardNumber,
+            gender,
+            diagnoses,
+            treatment
+        })
+
+        await notification.save()
+        
+        res.status(201).json({message: 'Уведомление создано'})
+        
+    } catch(e){
+        res.status(500).json({message: 'Ошибка, попытайтесь снова'}) 
+    }
 })
 
 module.exports = router

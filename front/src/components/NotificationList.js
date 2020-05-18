@@ -10,7 +10,7 @@ export const NotificationList = ( { notifications } ) => {
     const deleteHandler = async( notification ) =>{
         try{
          
-          await request('/api/admin/delete', 'POST', { notification } , { Authorization: `Bearer ${auth.token}`})
+          await request('/api/admin/deleteNotification', 'POST', { notification } , { Authorization: `Bearer ${auth.token}`})
                     
           window.location.reload()
         } catch(e) {
