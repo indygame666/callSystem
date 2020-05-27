@@ -30,8 +30,6 @@ export const EditUserField = ( { user } ) => {
      const changeClick = async() =>{
         try{
 
-            console.log(id)
-
             const data = await request(`api/admin/updateUser/${form.wardNumber}`, 'PUT', {...form, id}, { 
               Authorization: `Bearer ${auth.token}`})
 

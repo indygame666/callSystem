@@ -1,11 +1,14 @@
 import React, { useContext } from 'react'
 import { useHttp } from '../hooks/http.hooks'
 import { AuthContext } from '../context/AuthContext'
+import '../css/scroll.css'
+import { useHistory, Link } from 'react-router-dom'
 
 export const NotificationList = ( { notifications } ) => {
     
     const {loading, request} = useHttp() 
     const auth = useContext(AuthContext)
+    const history = useHistory() 
 
     const deleteHandler = async( notification ) =>{
         try{
@@ -17,20 +20,19 @@ export const NotificationList = ( { notifications } ) => {
 
         }
     } 
-    
+
     if (!notifications.length){
 
-    return <p className ="center">Нет запросов на помощь</p>
+    return <p className ="centered">Нет запросов на помощь</p>
     }
 
     return(
 
-        <table>
+        <table className ="centered">
         <thead>
           <tr>
               <th>ФИО</th>
               <th>Палата</th>
-              <th>Диагноз</th>
           </tr>
         </thead>
 
@@ -38,9 +40,8 @@ export const NotificationList = ( { notifications } ) => {
         { notifications.map( (notification) =>{
             return(
             <tr key = {notification._id}>
-                <td>{notification.name}</td>
+                <td><Link to ={`/detail/${notification._id}`}>{notification.name}</Link></td>
                 <td>{notification.wardNumber}</td>
-                <td>{notification.diagnoses}</td>
                 <td>
                 <button className="waves-effect red btn"
                 disabled = {loading}

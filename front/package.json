@@ -9,13 +9,15 @@
     "jquery": "^3.5.1",
     "materialize": "^1.0.0",
     "materialize-css": "^1.0.0-rc.2",
+    "midi-sounds-react": "^1.2.54",
     "prop-types": "^15.7.2",
     "ra-data-json-server": "^3.4.1",
     "react": "^16.13.1",
     "react-admin": "^3.4.2",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "use-sound": "^1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -52,21 +52,21 @@ export const ConfigUserPage = () => {
     return (
         <div>
         
-        <div className="input-field">
-        <input 
-        placeholder="Введите номер палаты" 
-        id="wardNumber" 
-        type="text"
-        name="wardNumber"
-        onChange = {changeHandler}
+            <div className="input-field">
+                <input 
+                placeholder="Введите номер палаты" 
+                id="wardNumber" 
+                type="text"
+                name="wardNumber"
+                onChange = {changeHandler}
 
-        />
-        <label htmlFor="wardNumber"></label>
+            />
+            <label htmlFor="wardNumber"></label>
         </div>
 
         <button className="waves-effect waves-light btn"
-        disabled = {loading}
-        onClick = {findHandler}
+            disabled = {loading}
+            onClick = {findHandler}
         >
         Найти
         </button>

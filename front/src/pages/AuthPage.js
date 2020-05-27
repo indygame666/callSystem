@@ -45,7 +45,7 @@ export const AuthPage = () => {
  
 
     return(
-            <div className = "col s6 offset-s3">
+            <div className = "">
                     <div className="card blue-grey darken-1" >
                         <div className="auth card-content white-text">
                             <span className="card-title">Авторизация</span>
@@ -53,7 +53,7 @@ export const AuthPage = () => {
 
                             <div className="input-field">
                             <input 
-                            placeholder="Введите номер палаты + номер койки" 
+                            placeholder="Введите номер места" 
                             id="wardNumber" 
                             type="text"
                             name="wardNumber"

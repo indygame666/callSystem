@@ -6,14 +6,14 @@ import { AuthContext } from '../context/AuthContext'
 import '../css/buttons.css'
 import '../css/cards.css'
 
-export const RegisterPage = () => {
+export const RegisterAdminPage = () => {
     const message = useMessage()
     const history = useHistory()
     const auth = useContext(AuthContext)
 
     const {loading,request,error, clearError} = useHttp()
     const [form,setForm] = useState({
-       fullName:'', password: '', wardNumber: '', gender: '', diagnoses: '', treatment:''
+       login:'', password: ''
     })
 
     const changeHandler = event => {
@@ -30,7 +30,7 @@ export const RegisterPage = () => {
     const registerHandler = async() =>{
         try{
 
-            const data = await request('api/admin/registerUser', 'POST', {...form}, { 
+            const data = await request('api/admin/registerAdmin', 'POST', {...form}, { 
               Authorization: `Bearer ${auth.token}`})
             message(data.message)
             history.push('/')
@@ -51,13 +51,13 @@ export const RegisterPage = () => {
 
                             <div className="input-field">
                             <input 
-                            placeholder="Введите ФИО" 
-                            id="fullName" 
+                            placeholder="Введите логин" 
+                            id="login" 
                             type="text"
-                            name="fullName"
+                            name="login"
                             onChange = {changeHandler}
                             />
-                            <label htmlFor="fullName"></label>
+                            <label htmlFor="login"></label>
                           </div>
 
                           <div className="input-field">
@@ -70,51 +70,6 @@ export const RegisterPage = () => {
                             />
                             <label htmlFor="password"></label>
                           </div>
-
-                          
-                           <div className="input-field">
-                           <input 
-                           placeholder="Введите номер палаты + номер койки" 
-                           id="wardNumber" 
-                           type="text"
-                           name="wardNumber"
-                           onChange = {changeHandler}
-                           />
-                           <label htmlFor="id"></label>
-                         </div>
-
-                          <div className="input-field">
-                          <input 
-                          placeholder="Введите пол (М/Ж)" 
-                          id="gender" 
-                          type="text"
-                          name="gender"
-                          onChange = {changeHandler}
-                          />
-                          <label htmlFor="gender"></label>
-                        </div>
-                         
-                        <div className="input-field">
-                            <input 
-                            placeholder="Впишите предварительный диагноз" 
-                            id="diagnoses" 
-                            type="text"
-                            name="diagnoses"
-                            onChange = {changeHandler}
-                            />
-                            <label htmlFor="diagnoses"></label>
-                          </div>
-                          
-                        <div className="input-field">
-                            <input 
-                            placeholder="Впишите рекомендуемое лечение(необязательно)" 
-                            id="treatment" 
-                            type="text"
-                            name="treatment"
-                            onChange = {changeHandler}
-                            />
-                            <label htmlFor="treatment"></label>
-                         </div>
 
                             </div>
                                 <div className="card-action">

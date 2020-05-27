@@ -1,0 +1,24 @@
+.scroll {
+    border: 0;
+    border-collapse: collapse;
+  }    
+  .scroll tr {
+    display: flex;
+  }    
+  .scroll td {
+    flex: 1 ;
+  }    
+  .scroll thead tr:after {
+    overflow-y: scroll;
+    visibility: hidden;
+    height: 0;
+  }    
+  .scroll thead th {
+    flex: 1 ;
+    display: block;
+  }    
+  .scroll tbody {
+    display: block;
+    overflow-y: auto;
+    height: calc(80vh - 100px);
+  }

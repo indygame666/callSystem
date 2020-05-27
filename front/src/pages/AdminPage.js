@@ -2,15 +2,20 @@ import React, { useState, useContext, useCallback, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hooks';
 import { NotificationList } from '../components/NotificationList.js'
-
+import useSound from 'use-sound'
+import notifySound from '../sounds/notify.mp3'
 
 export const AdminPage = () => {
+
+  var currentdata = null
 
   const [notification, setNotification] = useState(null)  
 
   const auth = useContext(AuthContext)
-  const {request} = useHttp() 
+  const {request} = useHttp()
+  const [sound] = useSound(notifySound)
 
+  
   const getNofitication = useCallback( async () => {
     try{
 
@@ -20,10 +25,11 @@ export const AdminPage = () => {
 
         setNotification(data)
 
+
     }catch(e){
     }
   
-}, [auth.token,request])
+}, [auth.token,request,sound])
 
 
 useEffect( () => {
@@ -36,6 +42,18 @@ useEffect( () => {
 
 }, [getNofitication])  
 
+
+/*if (currentdata == null)
+{
+  currentdata = notification  
+}
+
+if (currentdata !== notification)
+{
+  currentdata = notification
+  sound()
+}
+*/
 
   return(
     <div>

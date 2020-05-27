@@ -17,7 +17,7 @@ export const AdminBar = () =>
     }
 
     useEffect(() => {
-        let elem = document.querySelector('.dropdown-trigger');
+        let elem = document.querySelectorAll('.dropdown-trigger');
         material.Dropdown.init(elem);
     })
 
@@ -30,13 +30,19 @@ export const AdminBar = () =>
             <li><NavLink to= "/editUser">Пациент</NavLink></li>
         </ul>
 
+
+        <ul id="dropdown2" className="drop_large dropdown-content">
+            <li><NavLink to= "/registerAdmin">Администратор</NavLink></li>
+            <li><NavLink to= "/registerUser">Пациент</NavLink></li>
+        </ul>
+
         <nav>
             <div className="nav-wrapper card blue-grey darken-1">
-            <ul>
+            <ul >
                     <li><a href="esc" onClick = {logoutHandler}>Выйти</a></li>
                     <li><NavLink to= "/"><i className="large material-icons">refresh</i></NavLink></li>
                     <li><a href='/#'><i className="dropdown-trigger large material-icons" data-target="dropdown1">search</i></a></li>
-                    <li><NavLink to="/register">  Регистрация </NavLink></li>
+                    <li><a href='/#'><i className="dropdown-trigger large material-icons" data-target="dropdown2">add</i></a></li>
             </ul>
                     
             </div>

@@ -69,7 +69,23 @@ router.post(`/getAdmin`,admin, async (req,res)=>{
 router.get('/getNotifications', admin, async (req,res)=>{
     try {
         const collection = await Notification.find()
+
         res.json(collection)
+
+
+    } catch(e){
+        res.status(500).json({message: 'Ошибка, попытайтесь снова'}) 
+    }
+})
+
+router.get('/getNotification/:id', admin, async (req,res)=>{
+    try {
+        
+        const notification = await Notification.findOne({_id: req.params.id})
+
+        res.json(notification)
+
+
     } catch(e){
         res.status(500).json({message: 'Ошибка, попытайтесь снова'}) 
     }
