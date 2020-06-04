@@ -8,6 +8,7 @@ import { NavBar} from './components/Navbar'
 import { AdminBar } from './components/AdminBar'
 import { Loader } from './components/Loader'
 import { useHttp } from './hooks/http.hooks'
+import { Notifications } from 'react-push-notification'
 
 function App() {
   
@@ -26,12 +27,15 @@ function App() {
     
 
   return (
+
+    
     <AuthContext.Provider value={{
       token, login,logout,userId, isAuthenticated, decoded, ready
     }}>
       <Router>
        {isAuthenticated &&  decoded === "client" && <NavBar/>}
        {isAuthenticated &&  decoded === "admin" && <AdminBar/>}
+       <Notifications/>
         <div className="container">
         {routes}
         </div>

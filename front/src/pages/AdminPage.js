@@ -4,6 +4,7 @@ import { useHttp } from '../hooks/http.hooks';
 import { NotificationList } from '../components/NotificationList.js'
 import useSound from 'use-sound'
 import notifySound from '../sounds/notify.mp3'
+//import addNotification from 'react-push-notification';
 
 export const AdminPage = () => {
 
@@ -23,13 +24,13 @@ export const AdminPage = () => {
             Authorization: `Bearer ${auth.token}`
         })
 
-        setNotification(data)
+       setNotification(data)
 
 
     }catch(e){
     }
   
-}, [auth.token,request,sound])
+}, [auth.token,request])
 
 
 useEffect( () => {
@@ -43,7 +44,7 @@ useEffect( () => {
 }, [getNofitication])  
 
 
-/*if (currentdata == null)
+if (currentdata == null)
 {
   currentdata = notification  
 }
@@ -53,11 +54,11 @@ if (currentdata !== notification)
   currentdata = notification
   sound()
 }
-*/
+
 
   return(
     <div>
-    { notification && <NotificationList notifications = {notification} />}
+    { notification && <NotificationList notifications = {currentdata} />}
     </div>
   )
 }
