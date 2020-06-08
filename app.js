@@ -3,9 +3,7 @@ const config = require('config')
 const mongoose = require('mongoose')
 const path = require('path')
 
-
 const app = express()
-
 
 app.use(express.json({extended:true}))
 
@@ -17,7 +15,7 @@ if (process.env.NODE_ENV === 'production') {
     app.use('/',express.static(path.join(__dirname,'front','build')))
 
     app.get('*', (req,res)=>{
-        req.sendFile(path.resolve(__dirname,'front','build','index.html'))
+        res.sendFile(path.resolve(__dirname,'front','build','index.html'))
     })
 }
 
