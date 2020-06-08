@@ -2,14 +2,10 @@ const express = require('express')
 const config = require('config')
 const mongoose = require('mongoose')
 const path = require('path')
-//const socketio = require('socket.io');
-//const http = require('http');
+
 
 const app = express()
 
-//const server = http.createServer(app);
-
-//const io = socketio(server);
 
 app.use(express.json({extended:true}))
 
