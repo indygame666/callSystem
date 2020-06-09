@@ -3,6 +3,21 @@ const config = require('config')
 const mongoose = require('mongoose')
 const path = require('path')
 
+/*const webpush = require('web-push')
+
+const vapidKeys = { 
+    publicKey:'BNWRfQs5BqX07u1JA5QiXryIr5DHG88cFdwSgHAusEOkzJxg8FLGJ1mc5SKsJuh8WLwOuzL2WDoNye-Rnmp0GVo',
+   privateKey: 'f304g2abXlaaEeAD-gAP5k3JtE9SXf7t7sVyRyMyCgk' 
+}
+
+webpush.setVapidDetails('mailto:test@test.com', vapidKeys.publicKey,vapidKeys.privateKey)
+
+app.post('/subcribe', (req,res)=>{
+    const subscribtion = req.body
+    res.status(201).json({})
+})
+*/
+
 const app = express()
 
 app.use(express.json({extended:true}))

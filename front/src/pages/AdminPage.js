@@ -4,7 +4,7 @@ import { useHttp } from '../hooks/http.hooks';
 import { NotificationList } from '../components/NotificationList.js'
 import useSound from 'use-sound'
 import notifySound from '../sounds/notify.mp3'
-//import addNotification from 'react-push-notification';
+import addNotification from 'react-push-notification';
 
 export const AdminPage = () => {
 
@@ -13,9 +13,14 @@ export const AdminPage = () => {
   const [notification, setNotification] = useState(null)  
 
   const auth = useContext(AuthContext)
-  const {request} = useHttp()
+  const {request,loading} = useHttp()
   const [sound] = useSound(notifySound)
 
+  async function subscribe() {
+    let sw = await navigator.serviceWorker.ready
+    console.log(sw)
+
+  }
   
   const getNofitication = useCallback( async () => {
     try{
@@ -35,6 +40,7 @@ export const AdminPage = () => {
 
 useEffect( () => {
 
+  subscribe()
   getNofitication()
 
   const interval = setInterval(getNofitication,3000)
@@ -52,13 +58,22 @@ if (currentdata == null)
 if (currentdata !== notification)
 {
   currentdata = notification
+ /* addNotification({
+    title: 'Warning',
+    subtitle: 'This is a subtitle',
+    message: 'This is a very long message',
+    theme: 'darkblue'
+});
+*/
+
   sound()
 }
 
-
   return(
-    <div>
+      <div>
     { notification && <NotificationList notifications = {currentdata} />}
-    </div>
+      </div>
   )
+
+
 }
