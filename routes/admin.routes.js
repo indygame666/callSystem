@@ -62,8 +62,7 @@ router.post(
 router.post(
     '/registerUser',
     [
-        //check('email', "Invalid email").isEmail(),
-        //check('wardNumber', "палата должна быть прописана числом").,
+
         check('password', "пароль должен состоят минимум из 6 символов").isLength({ min:6}),
     ], 
     admin,

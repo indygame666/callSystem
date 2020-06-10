@@ -2,21 +2,17 @@ const express = require('express')
 const config = require('config')
 const mongoose = require('mongoose')
 const path = require('path')
+const webpush = require('web-push')
+const fs = require('fs')
 
-/*const webpush = require('web-push')
+var PUBLIC_VAPID_KEY = 'BKLFGADANebBaZrF7cvRxSgKsOnYT3CDsmjlCuJT9P1gn5ZiQRAUyzd6VRael3Zbmc67TrjyXM-DjQUeewPAUbg'
 
-const vapidKeys = { 
-    publicKey:'BNWRfQs5BqX07u1JA5QiXryIr5DHG88cFdwSgHAusEOkzJxg8FLGJ1mc5SKsJuh8WLwOuzL2WDoNye-Rnmp0GVo',
-   privateKey: 'f304g2abXlaaEeAD-gAP5k3JtE9SXf7t7sVyRyMyCgk' 
-}
+var PRIVATE_VAPID_KEY = 'KhzZKG_0I_ou8_6YXlwJiwSaXSNdy6gNmTZb-7uI0r8'
 
-webpush.setVapidDetails('mailto:test@test.com', vapidKeys.publicKey,vapidKeys.privateKey)
+var WEB_PUSH_CONTACT="mailto: contact@my-site.com"
 
-app.post('/subcribe', (req,res)=>{
-    const subscribtion = req.body
-    res.status(201).json({})
-})
-*/
+webpush.setVapidDetails(WEB_PUSH_CONTACT, PUBLIC_VAPID_KEY, PRIVATE_VAPID_KEY)
+
 
 const app = express()
 
@@ -25,6 +21,29 @@ app.use(express.json({extended:true}))
 app.use('/api/client', require('./routes/client.routes'))
 app.use('/api/data', require('./routes/data.routes'))
 app.use('/api/admin', require('./routes/admin.routes'))
+
+
+/*
+app.post('/notifications/subscribe', (req, res) => {
+    
+    const subscription = req.body
+
+    //console.log(subscription)
+  
+    const payload = JSON.stringify({
+      title: 'Hello!',
+      body: 'It works.',
+    })
+  
+    webpush.sendNotification(subscription, payload)
+      .then(result => console.log(result))
+      .catch(e => console.log(e.stack))
+      
+  
+    res.status(200).json({'success': true})
+  });
+
+*/
 
 if (process.env.NODE_ENV === 'production') {
     app.use('/',express.static(path.join(__dirname,'front','build')))
